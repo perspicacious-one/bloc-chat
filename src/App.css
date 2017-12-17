@@ -1,28 +1,58 @@
 .App {
   text-align: center;
+  position:fixed !important;
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  font-family: 'Roboto', sans-serif;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
 
 .App-header {
   background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  height: 60px;
+  padding: 10px;
+  color: #fefefe;
+  text-align: left;
+  width: 100%;
 }
 
 .App-title {
   font-size: 1.5em;
+  margin-left: 15px;
 }
 
 .App-intro {
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.App-main {
+  display: flex;
+  color: rgba(33,33,33 ,1);
+  height: 100%;
+  font-family: 'Nunito', sans-serif;
+}
+
+.room-list-container {
+  max-width: 300px;
+  height: 100%;
+  padding: 20px;
+  z-index: 3;
+  flex-grow: 1;
+  flex-shrink: 1;
+  background-color: rgba(250,250,250 ,1);
+  box-shadow: 1px 1px 3px rgba(38,50,56, .9);
+  text-align: left;
+  text-transform: capitalize;
+  letter-spacing: 2;
+}
+
+.chat-room {
+  height: 100%;
+  min-width: 300px;
+  flex-grow: 2;
+  flex-shrink: 2;
+  background-color: #fff;
 }
