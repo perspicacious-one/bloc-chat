@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AddIcon from '../../assets/icons/ic_add_24px.svg';
 import './room-list.css';
 
 class RoomList extends Component {
@@ -8,14 +9,28 @@ class RoomList extends Component {
     this.roomsRef = this.props.firebase.database().ref('rooms');
 
     this.state = {
+      newRoomName: 'Create room',
       rooms: []
     }
+
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
   componentDidMount() {
     this.roomsRef.on('child_added', snapshot => {
       const room = snapshot.val();
       room.key = snapshot.key;
       this.setState({ rooms: this.state.rooms.concat( room ) });
+    });
+  }
+  handleInputChange(e) {
+    const value = e.target.value;
+    this.setState({
+      newRoom: value
+    });
+  }
+  createRoom() {
+    this.roomsRef.push({
+      name: this.state.newRoomName
     });
   }
   render() {
@@ -28,7 +43,14 @@ class RoomList extends Component {
             )
           })
         }
+        <li>
+          <form onSubmit={this.createRoom()}>
+            <textarea id="new-room-input" value={this.state.newRoomName} onChange={this.handleInputChange}/>
+            <input type="submit" value={AddIcon} />
+          </form>
+        </li>
       </ul>
+
     )
   }
 }
