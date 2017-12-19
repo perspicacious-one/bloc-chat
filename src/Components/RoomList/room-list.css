@@ -1,11 +1,49 @@
 .room-list {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 10px;
 }
 .room-list li {
-  padding-bottom: 10px;
-  padding-top: 10px;
-  margin: 10px;
-  border-bottom: 1px solid rgba(50,50,56, .3)
+  padding: 10px 5px 10px 5px;
+  margin: 2px 8px 2px 8px;
+  border-bottom: 1px solid rgba(50,50,56, .2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+li>.delete-icon {
+  visibility: hidden;
+  color: grey;
+  cursor: pointer;
+}
+li:hover > .delete-icon {
+  visibility: visible;
+}
+.room-list li:last-child {
+  border: none;
+}
+.room-list li:last-child > form {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.room-list li:not(:last-child):hover {
+  box-shadow: 0px 0px 15px 5px rgba(240, 240, 240, .75);
+}
+#new-room-input {
+  border: 1px solid rgba(50,50,56, .2);
+  font-family: inherit;
+  flex-grow: 1;
+}
+#new-room-input:hover {
+  box-shadow: 0px 0px 15px 5px rgba(240, 240, 240, .75);
+}
+#submit-icon {
+  width: 32px;
+  height: 32px;
+  margin-left: 10px;
+  cursor: pointer;
 }
