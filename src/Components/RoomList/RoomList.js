@@ -40,10 +40,10 @@ class RoomList extends Component {
   deleteRoom(room, key, e) {
     e.preventDefault();
     const delRoom = this.props.firebase.database().ref('rooms/'+ key);
-    const i = this.state.rooms.indexOf(room);
+    //const i = this.state.rooms.indexOf(room);
     delRoom.remove();
     this.setState({
-      rooms: this.state.rooms.filter( item => item.key != key)
+      rooms: this.state.rooms.filter( item => item.key !== key)
     });
   }
 
@@ -53,7 +53,7 @@ class RoomList extends Component {
         {
           this.state.rooms.map( (room) => {
             return (
-              <li key={room.key}><span>{room.name}</span><i className="material-icons delete-icon" onClick={this.deleteRoom.bind(this, room, room.key)}>delete_forever</i></li>
+              <li key={room.key}><span onClick={this.props.handleRoomClick}>{room.name}</span><i className="material-icons delete-icon" onClick={this.deleteRoom.bind(this, room, room.key)}>delete_forever</i></li>
             )
           })
         }
