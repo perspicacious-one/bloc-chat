@@ -6,39 +6,36 @@ import firebase from './firebase.js';
 
 
 class App extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.initialRoom = firebase.database().ref('rooms').limitToFirst(1);
-
     this.state = {
       activeRoom: '',
-      messageRef: firebase.database().ref('messages'),
+      activeRoomName: ''
     }
-    this.handleRoomClick = this.handleRoomClick.bind(this)
+    this.roomsRef = firebase.database().ref('rooms/');
+    this.handleRoomClick = this.handleRoomClick.bind(this);
   }
   componentDidMount() {
     this.initialRoom.on('child_added', snapshot => {
       const room = snapshot.val();
       room.key = snapshot.key;
       this.setState({
-        activeRoom: room,
-        messageRef: firebase.database().ref('messages').orderByChild('roomId').equalTo(this.state.activeRoom)
+        activeRoom: room.roomID,
+        activeRoomName: room.name
       });
     });
   }
   handleRoomClick(e) {
-    const targetRoom = e.target.innerText;
-    if (targetRoom !== null) {
+    this.roomsRef.orderByChild('name').equalTo(e.target.innerText).on('child_added', snapshot => {
+      const target = snapshot.val();
+      target.id = snapshot.key;
       this.setState({
-        activeRoom: targetRoom,
-        messageRef: firebase.database().ref('messages').orderByChild('roomId').equalTo(targetRoom)
-      })
-    }
-    else {
-      alert("Can't find room: " + targetRoom);
-    }
+       activeRoom: target.id,
+       activeRoomName: target.name,
+      });
+    });
   }
-
   render() {
     return (
       <div className="App">
@@ -50,7 +47,7 @@ class App extends Component {
             <RoomList firebase={firebase} handleRoomClick={this.handleRoomClick} />
           </aside>
           <section className="chat-room">
-            <MessageList firebase={firebase} activeRoom={this.state.activeRoom} />
+            <MessageList firebase={firebase} activeRoom={this.state.activeRoom} activeRoomName={this.state.activeRoomName} />
           </section>
         </main>
       </div>
