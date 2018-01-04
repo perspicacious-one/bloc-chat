@@ -16,12 +16,12 @@ class App extends Component {
     this.roomsRef = firebase.database().ref('rooms/');
     this.handleRoomClick = this.handleRoomClick.bind(this);
   }
-  componentDidMount() {
+  componentWillMount() {
     this.initialRoom.on('child_added', snapshot => {
       const room = snapshot.val();
       room.key = snapshot.key;
       this.setState({
-        activeRoom: room.roomID,
+        activeRoom: room.key,
         activeRoomName: room.name
       });
     });

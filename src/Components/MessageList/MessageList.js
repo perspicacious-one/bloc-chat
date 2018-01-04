@@ -27,13 +27,7 @@ class MessageList extends Component {
   componentWillReceiveProps(nextProps) {
     if((nextProps.activeRoom !== this.props.activeRoom) && nextProps.activeRoom !== undefined) {
       this.resetMessages();
-      this.messageRef.on('child_added', snapshot => {
-        const message = snapshot.val();
-        message.key = snapshot.key;
-        if(message.roomID === nextProps.activeRoom) {
-          this.setState({ messages: this.state.messages.concat( message ) });
-        }
-      });
+
     }
   }
 
