@@ -8,32 +8,38 @@ import firebase from './firebase.js';
 class App extends Component {
   constructor() {
     super()
-    this.initialRoom = firebase.database().ref('rooms').limitToFirst(1);
     this.state = {
       activeRoom: '',
       activeRoomName: ''
     }
+    this.initialRoom = firebase.database().ref('rooms').limitToFirst(1);
     this.roomsRef = firebase.database().ref('rooms/');
+
+    this.setInitialRoom = this.setInitialRoom.bind(this);
     this.handleRoomClick = this.handleRoomClick.bind(this);
   }
   componentWillMount() {
-    this.initialRoom.on('child_added', snapshot => {
-      const room = snapshot.val();
-      room.key = snapshot.key;
-      this.setState({
-        activeRoom: room.key,
-        activeRoomName: room.name
-      });
+    this.initialRoom.once('value', snapshot => {
+      this.setInitialRoom(snapshot.val(), snapshot.key);
+    });
+
+  }
+  setInitialRoom(room, key) {
+    this.setState({
+      activeRoom: key,
+      activeRoomName: room.name
     });
   }
+
   handleRoomClick(e) {
-    this.roomsRef.orderByChild('name').equalTo(e.target.innerText).on('child_added', snapshot => {
-      const target = snapshot.val();
-      target.id = snapshot.key;
-      this.setState({
-       activeRoom: target.id,
-       activeRoomName: target.name,
-      });
+    this.roomsRef.orderByChild('name').equalTo(e.target.innerText).once('value', snapshot => {
+      this.setNewRoom(snapshot.val(), snapshot.key)
+    });
+  }
+  setNewRoom(room, key) {
+    this.setState({
+     activeRoom: key,
+     activeRoomName: room.name,
     });
   }
   render() {

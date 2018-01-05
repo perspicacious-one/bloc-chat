@@ -9,29 +9,38 @@ class MessageList extends Component {
       messages: [],
     }
     this.messageRef = this.props.firebase.database().ref('messages');
+    this.addRoomMessages = this.addRoomMessages.bind(this);
   }
   componentDidMount() {
-    this.messageRef.on('child_added', snapshot => {
-      const message = snapshot.val();
-      message.key = snapshot.key;
-      if(message.roomID === this.props.activeRoom) {
-        this.setState({ messages: this.state.messages.concat( message ) });
-      }
+    this.messageRef.once('value').then(function(snapshot) {
+      snapshot.forEach(function(child) {
+      this.addRoomMessages(child.val(), child.key);
+      })
     });
+  }
+  addRoomMessages(message, key) {
+    if(key === this.props.activeRoom) {
+      this.setState({ messages: this.state.messages.concat( message ) });
+    }
   }
   resetMessages() {
     this.setState({
       messages: [],
     });
   }
-  componentWillReceiveProps(nextProps) {
-    if((nextProps.activeRoom !== this.props.activeRoom) && nextProps.activeRoom !== undefined) {
-      this.resetMessages();
-
-    }
-  }
-
-
+  // componentWillReceiveProps(nextProps) {
+  //   if((nextProps.activeRoom !== this.props.activeRoom) && nextProps.activeRoom !== undefined) {
+  //     this.resetMessages();
+  //     this.newMessageRef.on('child_added', snapshot => {
+  //       const message = snapshot.val();
+  //       message.key = snapshot.key;
+  //       if(message.roomID === this.props.activeRoom) {
+  //         this.setState({ messages: this.state.messages.concat( message ) });
+  //       }
+  //     });
+  //   }
+  //
+  // }
 
   render() {
     return (
