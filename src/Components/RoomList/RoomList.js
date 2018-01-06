@@ -47,6 +47,7 @@ class RoomList extends Component {
     });
   }
 
+
   render() {
     return (
       <ul className="room-list">

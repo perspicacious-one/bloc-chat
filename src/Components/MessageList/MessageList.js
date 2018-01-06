@@ -5,42 +5,39 @@ class MessageList extends Component {
   constructor(props) {
     super(props)
 
+    this.messageRef = this.props.firebase.database().ref('messages/');
+
     this.state = {
       messages: [],
     }
-    this.messageRef = this.props.firebase.database().ref('messages');
+
     this.addRoomMessages = this.addRoomMessages.bind(this);
   }
   componentDidMount() {
-    this.messageRef.once('value').then(function(snapshot) {
-      snapshot.forEach(function(child) {
-      this.addRoomMessages(child.val(), child.key);
-      })
+    this.messageRef.on('child_added', snapshot => {
+      const newMessage = snapshot.val()
+      this.addRoomMessages(newMessage);
     });
   }
-  addRoomMessages(message, key) {
-    if(key === this.props.activeRoom) {
+  addRoomMessages(message) {
+    if(message.roomId === this.props.activeRoom) {
       this.setState({ messages: this.state.messages.concat( message ) });
     }
   }
-  resetMessages() {
-    this.setState({
-      messages: [],
-    });
+
+  componentWillReceiveProps(nextProps) {
+    if((nextProps.activeRoom !== this.props.activeRoom) && (nextProps.activeRoom !== undefined)) {
+      this.setState({
+        messages: [],
+      });
+      this.messageRef.once('value', snapshot => {
+        snapshot.forEach( (child) => {
+          const newMessage = child.val();
+          this.addRoomMessages(newMessage);
+        });
+      });
+    }
   }
-  // componentWillReceiveProps(nextProps) {
-  //   if((nextProps.activeRoom !== this.props.activeRoom) && nextProps.activeRoom !== undefined) {
-  //     this.resetMessages();
-  //     this.newMessageRef.on('child_added', snapshot => {
-  //       const message = snapshot.val();
-  //       message.key = snapshot.key;
-  //       if(message.roomID === this.props.activeRoom) {
-  //         this.setState({ messages: this.state.messages.concat( message ) });
-  //       }
-  //     });
-  //   }
-  //
-  // }
 
   render() {
     return (
