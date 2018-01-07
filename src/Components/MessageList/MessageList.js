@@ -43,9 +43,6 @@ class MessageList extends Component {
 
     }
   }
-  o() {
-
-  }
 
   render() {
     return (
