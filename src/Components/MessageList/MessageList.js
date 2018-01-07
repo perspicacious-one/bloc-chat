@@ -10,33 +10,41 @@ class MessageList extends Component {
     this.state = {
       messages: [],
     }
-
-    this.addRoomMessages = this.addRoomMessages.bind(this);
+    //this.addRoomMessages = this.addRoomMessages.bind(this);
   }
-  componentDidMount() {
-    this.messageRef.on('child_added', snapshot => {
-      const newMessage = snapshot.val()
-      this.addRoomMessages(newMessage);
-    });
-  }
-  addRoomMessages(message) {
-    if(message.roomId === this.props.activeRoom) {
-      this.setState({ messages: this.state.messages.concat( message ) });
-    }
-  }
+  // addRoomMessages(message, activeRoom = this.props.activeRoom) {
+  //   if(message.roomId === activeRoom) {
+  //     if (this.state.messages.includes(message)) { return; }
+  //     else {
+  //       this.setState({ messages: this.state.messages.concat( message ) });
+  //     }
+  //   }
+  // }
 
   componentWillReceiveProps(nextProps) {
     if((nextProps.activeRoom !== this.props.activeRoom) && (nextProps.activeRoom !== undefined)) {
+      const newMessageArray = [];
+
       this.setState({
         messages: [],
       });
-      this.messageRef.once('value', snapshot => {
+      this.messageRef.on('value', snapshot => {
         snapshot.forEach( (child) => {
           const newMessage = child.val();
-          this.addRoomMessages(newMessage);
+          newMessage.key = child.parent;
+
+          if(newMessage.roomId === nextProps.activeRoom) {
+            newMessageArray.push(newMessage);
+          }
+          //this.addRoomMessages(newMessage, nextProps.activeRoom);
         });
       });
+      this.setState({ messages: newMessageArray });
+
     }
+  }
+  o() {
+
   }
 
   render() {

@@ -20,7 +20,7 @@ class App extends Component {
     this.setInitialRoom = this.setInitialRoom.bind(this);
     this.handleRoomClick = this.handleRoomClick.bind(this);
   }
-  componentWillMount() {
+  componentDidMount() {
     this.initialRoom.once('child_added', snapshot => {
       this.setInitialRoom(snapshot.val(), snapshot.key);
     });
