@@ -1,0 +1,17 @@
+.login-div {
+  margin-right: 20px;
+}
+.login-control {
+  background-color: rgba(230, 53, 75, 0.95);
+  border: 1px solid   rgba(230, 53, 75, 0.80);
+  border-radius: 4px;
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #FDFFFC;
+  margin-right: 20px;
+}
+.user-name {
+  margin-right: 15px;
+}

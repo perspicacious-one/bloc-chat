@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import RoomList from './Components/RoomList/RoomList.js';
 import MessageList from './Components/MessageList/MessageList.js';
+import User from './Components/User/User.js';
 import firebase from './firebase.js';
 
 
@@ -14,17 +15,19 @@ class App extends Component {
 
     this.state = {
       activeRoom: '',
-      activeRoomName: ''
+      activeRoomName: '',
+      user: '',
     }
 
     this.setInitialRoom = this.setInitialRoom.bind(this);
     this.handleRoomClick = this.handleRoomClick.bind(this);
+    this.setUser = this.setUser.bind(this);
+    //this.getUserName = this.getUserName.bind(this);
   }
   componentDidMount() {
     this.initialRoom.once('child_added', snapshot => {
       this.setInitialRoom(snapshot.val(), snapshot.key);
     });
-
   }
   setInitialRoom(room, key) {
     this.setState({
@@ -44,11 +47,18 @@ class App extends Component {
      activeRoomName: room.name,
     });
   }
+  setUser(user) {
+    this.setState({
+      user: user,
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Bloc Chat</h1>
+          <User className="login-control" firebase={firebase} setUser={this.setUser} />
         </header>
         <main className="App-main">
           <aside className="room-list-container">
