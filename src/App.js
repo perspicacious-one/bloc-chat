@@ -10,7 +10,7 @@ class App extends Component {
   constructor() {
     super()
 
-    this.initialRoom = firebase.database().ref('rooms/').limitToFirst(1);
+    //this.initialRoom = firebase.database().ref('rooms/').limitToFirst(1);
     this.roomsRef = firebase.database().ref('rooms/');
 
     this.state = {
@@ -25,7 +25,7 @@ class App extends Component {
     //this.getUserName = this.getUserName.bind(this);
   }
   componentDidMount() {
-    this.initialRoom.once('child_added', snapshot => {
+    this.roomsRef.limitToFirst(1).once('child_added', snapshot => {
       this.setInitialRoom(snapshot.val(), snapshot.key);
     });
   }
@@ -65,7 +65,12 @@ class App extends Component {
             <RoomList firebase={firebase} handleRoomClick={this.handleRoomClick} />
           </aside>
           <section className="chat-room">
-            <MessageList firebase={firebase} activeRoom={this.state.activeRoom} activeRoomName={this.state.activeRoomName} />
+            <MessageList
+              firebase={firebase}
+              activeRoom={this.state.activeRoom}
+              activeRoomName={this.state.activeRoomName}
+              userName={this.state.user.displayName}
+            />
           </section>
         </main>
       </div>

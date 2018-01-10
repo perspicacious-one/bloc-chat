@@ -1,21 +1,22 @@
+html, body {
+   background-color: #010C16;
+   height: 100vh;
+   width: 100vw;
+}
 .App {
   text-align: center;
-  position:fixed !important;
-  position:absolute;
-  top:0;
-  right:0;
-  bottom:0;
-  left:0;
-  font-family: 'Roboto', sans-serif;
+  height: 100vh;
+  width: 100vw;
 }
-
-
+h1, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 1px;
+}
 .App-header {
-  background-color: #222;
-  height: 60px;
+  background-color: #010C16;
+  height: 6vh;
   padding: 10px;
-  color: #fefefe;
-  width: 100%;
+  color: #FDFFFC;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -33,30 +34,50 @@
 
 .App-main {
   display: flex;
-  color: rgba(33,33,33 ,1);
-  height: 100%;
+  color: #010C16;
+  background-color: #010C16;
+  height: 90vh;
+  width: 100vw;
   font-family: 'Nunito', sans-serif;
+  font-size: calc(16px + .1vw);
+  overflow: hidden;
+  align-items: flex-start;
 }
 
 .room-list-container {
-  max-width: 300px;
-  height: 100%;
+  max-width: 20vw;
+  height: 90vh;
   padding: 20px;
   z-index: 3;
   flex-grow: 1;
-  flex-shrink: 1;
+  flex-shrink: 1.2;
   background-color: rgba(250,250,250 ,1);
   box-shadow: 1px 1px 3px rgba(38,50,56, .9);
   text-align: left;
   text-transform: capitalize;
-  letter-spacing: 2;
 }
 
 .chat-room {
-  height: 100%;
-  min-width: 300px;
+  height: 90vh;
+  width: 80vw;
   flex-grow: 2;
   flex-shrink: 2;
-  background-color: #fff;
-  padding: 4px;
+  background-color: #FDFFFC;
+  text-align: center;
+  padding: 0;
+}
+.accent-red {
+  background-color: rgba(230, 53, 75, 0.95);
+}
+.accent-blue-green {
+  background-color: rgb(46, 196, 182);
+}
+.background-dark-blue {
+  background-color: #011627;
+}
+.background-dark {
+  background-color: #010C16;
+}
+.background-light {
+  background-color: #FDFFFC;
 }

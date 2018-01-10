@@ -45,16 +45,16 @@ class User extends Component {
     this.props.firebase.auth().signOut();
     this.setState({
       userName: '',
-    })
+    });
   }
 
   render() {
 
       { if(this.state.userName !== '') {
-          return (<div className="login-div"><span className='user-name'>{this.state.userName}</span><button className='login-control' onClick={this.handleLogout}>Sign Out</button></div>);
+          return (<div className="login-div"><span className='user-name'>{this.state.userName}</span><button className='login-control accent-red' onClick={this.handleLogout}>Sign Out</button></div>);
         }
         else {
-          return (<div className="login-div"><button className='login-control' onClick={this.handleLogin}>Sign In</button></div>);
+          return (<div className="login-div"><button className='login-control accent-red' onClick={this.handleLogin}>Sign In</button></div>);
         }
       }
 
