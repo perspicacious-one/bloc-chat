@@ -14,25 +14,18 @@ class App extends Component {
     this.roomsRef = firebase.database().ref('rooms/');
 
     this.state = {
-      activeRoom: '',
-      activeRoomName: '',
+      // activeRoom: '',
+      // activeRoomName: '',
       user: '',
+      isLoggedIn: false
     }
-
-    this.setInitialRoom = this.setInitialRoom.bind(this);
     this.handleRoomClick = this.handleRoomClick.bind(this);
     this.setUser = this.setUser.bind(this);
-    //this.getUserName = this.getUserName.bind(this);
+    this.toggleLoggedIn = this.toggleLoggedIn.bind(this);
   }
-  componentDidMount() {
-    this.roomsRef.limitToFirst(1).once('child_added', snapshot => {
-      this.setInitialRoom(snapshot.val(), snapshot.key);
-    });
-  }
-  setInitialRoom(room, key) {
-    this.setState({
-      activeRoom: key,
-      activeRoomName: room.name
+  componentWillMount() {
+    this.roomsRef.orderByKey().limitToFirst(1).once('child_added', snapshot => {
+      this.setNewRoom(snapshot.val(), snapshot.key);
     });
   }
 
@@ -51,8 +44,41 @@ class App extends Component {
     this.setState({
       user: user,
     });
+    this.toggleLoggedIn(user);
   }
-
+  toggleLoggedIn(user) {
+    if(this.state.isLoggedIn) {
+      if(user.displayName === undefined || user.displayName === null) {
+        this.setState({
+          isLoggedIn: false
+        });
+      }
+    } else {
+      if(user.displayName !== undefined) {
+        this.setState({
+          isLoggedIn: true
+        });
+      }
+    }
+  }
+  // viewMessageContainer() {
+  //   if(this.isLoggedIn) {
+  //     return (
+  //       <div className='login-prompt'>
+  //         <p>Please sign in to view messages</p>
+  //         <User firebase={firebase} setUser={this.setUser} />
+  //       </div>
+  //     )}
+  //   else {
+  //     return (
+  //       <MessageList
+  //         firebase={firebase}
+  //         activeRoom={this.state.activeRoom}
+  //         activeRoomName={this.state.activeRoomName}
+  //         userName={this.state.user.displayName}
+  //       />
+  //   )}
+  // }
   render() {
     return (
       <div className="App">
@@ -65,12 +91,16 @@ class App extends Component {
             <RoomList firebase={firebase} handleRoomClick={this.handleRoomClick} />
           </aside>
           <section className="chat-room">
+          {this.state.isLoggedIn ? (
             <MessageList
               firebase={firebase}
               activeRoom={this.state.activeRoom}
               activeRoomName={this.state.activeRoomName}
               userName={this.state.user.displayName}
             />
+          ) : (
+            <p>Please sign in to view messages</p>
+          )}
           </section>
         </main>
       </div>

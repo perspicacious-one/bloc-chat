@@ -18,17 +18,17 @@ class MessageList extends Component {
     this.addMessage = this.addMessage.bind(this);
   }
 
-  // componentWillMount() {
-  //   this.messageRef.LimitToLast(1).on('child_added', snapshot => {
-  //     const newMessage = snapshot.val();
-  //     newMessage.key = child.parent;
-  //     if(newMessage.roomId === this.props.activeRoom) {
-  //       this.setState({
-  //         messages: this.state.messages.concat( newMessage )
-  //       });
-  //     }
-  //   });
-  // }
+  componentWillMount() {
+    this.messageRef.on('child_added', snapshot => {
+      const newMessage = snapshot.val();
+      newMessage.key = snapshot.key;
+      if(newMessage.roomId === this.props.activeRoom) {
+        this.setState({
+          messages: this.state.messages.concat( newMessage )
+        });
+      }
+    });
+  }
   componentWillReceiveProps(nextProps) {
     if((nextProps.activeRoom !== this.props.activeRoom) && (nextProps.activeRoom !== undefined)) {
       const newMessageArray = [];
@@ -36,7 +36,7 @@ class MessageList extends Component {
       this.setState({
         messages: [],
       });
-      this.messageRef.on('value', snapshot => {
+      this.messageRef.once('value', snapshot => {
         snapshot.forEach( (child) => {
           const message = child.val();
           message.key = child.parent;

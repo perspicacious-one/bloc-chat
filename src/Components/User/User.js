@@ -26,11 +26,11 @@ class User extends Component {
   }
 
   handleLogin() {
+    this.props.firebase.auth().setPersistence(this.props.firebase.auth.Auth.Persistence.SESSION)
     this.props.firebase.auth().signInWithPopup( this.provider )
     .then( result => {
       // The firebase.User instance:
       var user =  result.user;
-      var credential = result.credential;
       this.setState({
         userName: result.user.displayName,
       })
@@ -43,6 +43,7 @@ class User extends Component {
   }
   handleLogout() {
     this.props.firebase.auth().signOut();
+    this.props.setUser('');
     this.setState({
       userName: '',
     });

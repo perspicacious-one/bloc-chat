@@ -39,7 +39,7 @@ h1, h2, h3 {
   height: 90vh;
   width: 100vw;
   font-family: 'Nunito', sans-serif;
-  font-size: calc(16px + .1vw);
+  font-size: calc(16px + .05vw);
   overflow: hidden;
   align-items: flex-start;
 }
@@ -56,7 +56,6 @@ h1, h2, h3 {
   text-align: left;
   text-transform: capitalize;
 }
-
 .chat-room {
   height: 90vh;
   width: 80vw;
@@ -66,6 +65,11 @@ h1, h2, h3 {
   text-align: center;
   padding: 0;
 }
+.login-prompt {
+  margin: 50px auto 0 auto;
+  max-width: 400px;
+}
+
 .accent-red {
   background-color: rgba(230, 53, 75, 0.95);
 }
