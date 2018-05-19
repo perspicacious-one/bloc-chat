@@ -1,6 +1,7 @@
 # Bloc-chat
 
 A chat app built with React & Firebase.
+
 _**this app is no longer actively developed or supported**_
 
 ### Get Started
@@ -48,17 +49,19 @@ _**this app is no longer actively developed or supported**_
 
 
 ### Notes
-#### References:
 
-**Rooms** - `this.props.firebase.database().ref('rooms');`
 
-**Messages** - `this.props.firebase.database().ref('messages');`
+#### Creating references:
+* **Rooms** - `this.props.firebase.database().ref('rooms');`
+
+* **Messages** - `this.props.firebase.database().ref('messages');`
+
 
 #### Authentication:
-
 User authentication is provided through Firebase Authentication.
 
 `this.props.firebase.auth.GoogleAuthProvider();`
+
 
 #### React
 
