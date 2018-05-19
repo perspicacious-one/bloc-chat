@@ -61,24 +61,7 @@ class App extends Component {
       }
     }
   }
-  // viewMessageContainer() {
-  //   if(this.isLoggedIn) {
-  //     return (
-  //       <div className='login-prompt'>
-  //         <p>Please sign in to view messages</p>
-  //         <User firebase={firebase} setUser={this.setUser} />
-  //       </div>
-  //     )}
-  //   else {
-  //     return (
-  //       <MessageList
-  //         firebase={firebase}
-  //         activeRoom={this.state.activeRoom}
-  //         activeRoomName={this.state.activeRoomName}
-  //         userName={this.state.user.displayName}
-  //       />
-  //   )}
-  // }
+
   render() {
     return (
       <div className="App">

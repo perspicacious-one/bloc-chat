@@ -13,14 +13,16 @@ h1, h2, h3 {
   letter-spacing: 1px;
 }
 .App-header {
-  background-color: #010C16;
+  background-color: #038ACC;
   height: 6vh;
   padding: 10px;
   color: #FDFFFC;
+  z-index: 5;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 .App-title {
   font-size: 1.5em;
@@ -51,8 +53,8 @@ h1, h2, h3 {
   z-index: 3;
   flex-grow: 1;
   flex-shrink: 1.2;
-  background-color: rgba(250,250,250 ,1);
-  box-shadow: 1px 1px 3px rgba(38,50,56, .9);
+  background-color: #FDFFFC;
+  box-shadow: 1px 1px 4px rgba(38,50,56, .8);
   text-align: left;
   text-transform: capitalize;
 }
