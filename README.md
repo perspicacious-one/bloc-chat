@@ -1,4 +1,4 @@
-# Bloc-chat
+# Chattel
 
 A chat app built with React & Firebase.
 
@@ -6,8 +6,8 @@ _**this app is no longer actively developed or supported**_
 
 ### Get Started
 
-1. Download or clone the repo. `git clone git@github.com:perspicacious-one/bloc-chat.git`
-2. In your terminal: `cd bloc-chat`
+1. Download or clone the repo. `git clone git@github.com:perspicacious-one/chattel.git`
+2. In your terminal: `cd chattel`
 3. Run `npm install`
 4. Set up your firebase project linkage in firebase.js:
 
